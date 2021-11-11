@@ -31,11 +31,18 @@
 
 	<beans:bean id="memberInterceptor"
 		class="com.care.root.member.interceptor.MemberInterceptor" />
+	<beans:bean id="bti"
+		class="com.care.root.testboard.BoardTestInterceptor" />
 	<interceptors>
 		<interceptor>
 			<!-- <mapping path="/index" /> -->
-			<mapping path="/member/memberInfo"/>
+			<mapping path="/member/memberInfo" />
 			<beans:ref bean="memberInterceptor" />
+		</interceptor>
+		<interceptor>
+			<!-- <mapping path="/index" /> -->
+			<mapping path="/test/board" />
+			<beans:ref bean="bti" />
 		</interceptor>
 	</interceptors>
 </beans:beans>

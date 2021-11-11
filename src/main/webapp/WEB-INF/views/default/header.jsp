@@ -81,6 +81,10 @@ nav ul li a:hover {
 		<div class="wrap">
 			<nav>
 				<ul>
+					<li>
+					<a href="${contextPath }/test/board">TEST_BOARD</a>
+					</li>
+				
 					<li><a href="${contextPath }/index">HOME</a></li>
 					<li><c:choose>
 							<c:when test="${loginUser != null }">
