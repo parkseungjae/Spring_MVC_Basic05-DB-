@@ -24,8 +24,9 @@ public class MemberInterceptor extends HandlerInterceptorAdapter implements Memb
 			response.setContentType("text/html; charset=utf-8");
 			PrintWriter out = response.getWriter();
 			out.print("<script>alert('로그인후 접근 가능');"
-		               + "location.href='" + request.getContextPath() +
-		               "/member/login';</script>");
+//		               + "location.href='" + request.getContextPath() +
+//		               "/member/login';"
+		               + "</script>");
 			return false;
 		}
 
