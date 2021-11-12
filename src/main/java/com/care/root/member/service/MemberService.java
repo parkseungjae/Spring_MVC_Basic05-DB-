@@ -16,4 +16,5 @@ public interface MemberService {
 	
 	public int register(MemberDTO dto);
 	public void keepLogin(String sessionId,Date limitDate, String id);
+	public MemberDTO getUserSessionId(String sessionId);
 }

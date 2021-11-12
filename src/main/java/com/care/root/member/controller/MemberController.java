@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -46,36 +47,42 @@ public class MemberController implements MemberSessionName {
 		}
 	}
 
-	@GetMapping("/successLogin")//로그인 성공
+	@GetMapping("/successLogin") // 로그인 성공
 	public String successLogin(@RequestParam String id, HttpSession session,
-			@RequestParam(required = false) String autoLogin,
-			HttpServletResponse response) {
+			@RequestParam(required = false) String autoLogin, HttpServletResponse response) {
 		System.out.println("id : " + id);
 		System.out.println("autoLogin : " + autoLogin);
 		session.setAttribute(LOGIN, id);
-		if(autoLogin != null) {
-			int limitTime = 60*60*24*90; // 90일
+		if (autoLogin != null) {
+			int limitTime = 60 * 60 * 24 * 90; // 90일
 			Cookie loginCookie = new Cookie("loginCookie", session.getId());
 			loginCookie.setPath("/");
 			loginCookie.setMaxAge(limitTime);
 			response.addCookie(loginCookie);
-			
+
 			Calendar cal = Calendar.getInstance();
 			cal.setTime(new Date());
 			cal.add(Calendar.MONTH, 3);
-			
+
 			java.sql.Date limitDate = new java.sql.Date(cal.getTimeInMillis());
 			ms.keepLogin(session.getId(), limitDate, id);
 		}
-		
+
 		return "member/successLogin";
 	}
 
 	@GetMapping("/logout")
-	public String logout(HttpSession session) {
+	public String logout(HttpSession session, HttpServletResponse response,
+			@CookieValue(value = "loginCookie", required = false) Cookie loginCookie) {
 		if (session.getAttribute(LOGIN) != null) {
-			session.invalidate();
+			if (loginCookie != null) {
+				loginCookie.setMaxAge(0);
+				response.addCookie(loginCookie);
+				ms.keepLogin("nan", new java.sql.Date(System.currentTimeMillis()),
+						(String) session.getAttribute(LOGIN));
+			}
 		}
+		session.invalidate();
 		return "redirect:/index";
 	}
 

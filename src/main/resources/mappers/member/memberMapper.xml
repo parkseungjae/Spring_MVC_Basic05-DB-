@@ -25,4 +25,7 @@
 	<update id="keepLogin">
 		update membership set session_id=#{sessionId},limit_time=#{limitDate} where id=#{id}
 	</update>
+	<select id="getUserSessionId" resultMap="member">
+		select * from membership where session_id = #{sessionId}
+	</select>
 </mapper>
