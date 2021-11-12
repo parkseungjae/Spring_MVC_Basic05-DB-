@@ -42,6 +42,7 @@
 		<interceptor>
 			<!-- <mapping path="/index" /> -->
 			<mapping path="/test/board" />
+			<mapping path="/test/write" />
 			<beans:ref bean="bti" />
 		</interceptor>
 	</interceptors>

@@ -9,6 +9,8 @@
 		<id property="id" column="id" />
 		<result property="pw" column="pw" />
 		<result property="addr" column="addr" />
+		<result property="limitTime" column="limit_time" />
+		<result property="sessionId" column="session_id" />
 	</resultMap>
 	<select id="userChk" resultMap="member">
 		select * from membership where
@@ -20,4 +22,7 @@
 	<insert id="register">
 		insert into membership values(#{id}, #{pw}, #{addr})
 	</insert>
+	<update id="keepLogin">
+		update membership set session_id=#{sessionId},limit_time=#{limitDate} where id=#{id}
+	</update>
 </mapper>

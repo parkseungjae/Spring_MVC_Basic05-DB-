@@ -12,4 +12,9 @@ public class BoardTest {
 		return "test/board";
 	}
 	
+	@GetMapping("/write")
+	public String testWrite() {
+		return "test/board";
+	}
+	
 }
