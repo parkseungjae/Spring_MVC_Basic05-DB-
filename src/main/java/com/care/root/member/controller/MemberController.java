@@ -49,7 +49,8 @@ public class MemberController implements MemberSessionName {
 
 	@GetMapping("/successLogin") // 로그인 성공
 	public String successLogin(@RequestParam String id, HttpSession session,
-			@RequestParam(required = false) String autoLogin, HttpServletResponse response) {
+			@RequestParam(required = false) String autoLogin,
+			HttpServletResponse response) {
 		System.out.println("id : " + id);
 		System.out.println("autoLogin : " + autoLogin);
 		session.setAttribute(LOGIN, id);
@@ -76,6 +77,7 @@ public class MemberController implements MemberSessionName {
 			@CookieValue(value = "loginCookie", required = false) Cookie loginCookie) {
 		if (session.getAttribute(LOGIN) != null) {
 			if (loginCookie != null) {
+				loginCookie.setPath("/");
 				loginCookie.setMaxAge(0);
 				response.addCookie(loginCookie);
 				ms.keepLogin("nan", new java.sql.Date(System.currentTimeMillis()),

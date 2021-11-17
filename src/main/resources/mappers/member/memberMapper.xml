@@ -20,7 +20,7 @@
 		select * from membership
 	</select>
 	<insert id="register">
-		insert into membership values(#{id}, #{pw}, #{addr})
+		insert into membership(id, pw, addr) values(#{id}, #{pw}, #{addr})
 	</insert>
 	<update id="keepLogin">
 		update membership set session_id=#{sessionId},limit_time=#{limitDate} where id=#{id}
