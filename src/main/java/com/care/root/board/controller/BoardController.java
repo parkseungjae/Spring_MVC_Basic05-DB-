@@ -28,8 +28,8 @@ public class BoardController {
 	BoardService bs;
 
 	@RequestMapping("boardAllList")
-	public String selectAllBoardList(Model model) {
-		bs.selectAllBoardList(model);
+	public String selectAllBoardList(Model model, @RequestParam(required = false, defaultValue = "1") int num) {
+		bs.selectAllBoardList(model, num);
 		return "board/boardAllList";
 	}
 

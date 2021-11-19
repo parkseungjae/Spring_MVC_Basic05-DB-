@@ -77,6 +77,9 @@ function replyData(){
 			data : JSON.stringify(form),//json 문법으로 바꿔줌
 			contentType : "application/json;charset=utf-8",//데이터 타입
 			success : function(list) {
+				$("#title").val("")
+				$("#content").val("")
+				
 				alert("성공적으로 답글이 달렸습니다.");
 				slide_hide();
 				replyData();
@@ -88,7 +91,7 @@ function replyData(){
 	}
 </script>
 </head>
-<body>
+<body onload="replyData()">
 	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 	<div id="modal_wrap">
 		<div id="first">

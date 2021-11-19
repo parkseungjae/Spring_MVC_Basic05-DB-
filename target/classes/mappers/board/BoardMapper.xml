@@ -22,13 +22,14 @@
 		<result property="write_date" column="write_date" />
 	</resultMap>
 
-	<select id="selectAllBoardList" resultMap="board">
+<!-- 	<select id="selectAllBoardList" resultMap="board">
 		select * from
 		mvc_board
-	</select>
+	</select> -->
 
 	<select id="getRepList" resultMap="reply">
-		select * from reply where write_group=#{write_group}
+		select * from reply where
+		write_group=#{write_group}
 		order by write_date desc
 	</select>
 
@@ -63,6 +64,16 @@
 		values(#{id},#{title},#{content},#{write_group})
 	</insert>
 
-
+	<select id="selectBoardCount" resultType="Integer">
+		select count(*) from
+		mvc_board
+	</select>
+	<select id="selectAllBoardList" resultMap="board">
+		select B.* from(select
+		rownum rn, A.* from
+		(select * from mvc_board order by write_no desc)A)B
+		where rn between #{s} and
+		#{e}
+	</select>
 </mapper>
   

@@ -23,8 +23,18 @@ public class BoardServiceImpl implements BoardService {
 	BoardFileService bfs;
 
 	@Override
-	public void selectAllBoardList(Model model) {
-		model.addAttribute("boardList", mapper.selectAllBoardList());
+	public void selectAllBoardList(Model model, int num) {
+		int pageLetter = 3;
+		int allCount = mapper.selectBoardCount();
+		int repeat = allCount / pageLetter;
+		if (allCount % pageLetter != 0) {
+			repeat += 1;
+		}
+		int end = num * pageLetter;
+		int start = end + 1 - pageLetter;
+
+		model.addAttribute("repeat", repeat);
+		model.addAttribute("boardList", mapper.selectAllBoardList(start, end));
 	}
 
 	public String writeSave(MultipartHttpServletRequest mul, HttpServletRequest request) {
@@ -117,16 +127,16 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	   public String addReply(BoardRepDTO dto) {
-	      int result = mapper.addReply(dto);
-	      String msg = null;
-	      if(result == 1) {
-	         msg = " {\"result\" : true} ";
-	      }else {
-	         msg = " {\"result\" : false} ";
-	      }
-	      return msg;
-	   }
+	public String addReply(BoardRepDTO dto) {
+		int result = mapper.addReply(dto);
+		String msg = null;
+		if (result == 1) {
+			msg = " {\"result\" : true} ";
+		} else {
+			msg = " {\"result\" : false} ";
+		}
+		return msg;
+	}
 
 	@Override
 	public List<BoardRepDTO> getRepList(int write_group) {
