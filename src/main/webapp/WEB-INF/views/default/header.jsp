@@ -85,6 +85,7 @@ nav ul li a:hover {
 					<li><a href="${contextPath }/test/write">TEST_WRITE</a></li>
 					<li><a href="${contextPath }/index">HOME</a></li>
 					<li><a href="${contextPath }/member/memberInfo">MEMBER_SHIP</a>
+					<li><a href="${contextPath }/board/boardAllList">BOARD</a>
 					<li><c:choose>
 							<c:when test="${loginUser != null }">
 								<a href="${contextPath }/member/logout">LOGOUT</a>
